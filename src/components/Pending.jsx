@@ -3,12 +3,13 @@ import { Todos } from '../context/Context'
 import DummyData from './dummyData'
 import Delete from './Delete'
 import { IoCheckmarkDone } from "react-icons/io5";
+import { useNavigate } from 'react-router-dom';
 
 function GetAllTodo() {
   const {ActiveTask  , loading , deleteTodo , singleUpdate } = useContext(Todos)
   const [open , setOpen] = useState(false)
   const [select , setSelect] = useState(null)
-
+  const navigate = useNavigate()
   const sendDelete = (todo) => {
     setSelect(todo)
     setOpen(true)
@@ -69,10 +70,16 @@ function GetAllTodo() {
                   <div className="flex sm:flex-col items-center sm:items-end gap-3 sm:gap-2 flex-shrink-0">
                     {/* Delete Button */}
                    
-                      <button onClick={() => sendDelete(todo)} className="group relative bg-gradient-to-r from-red-500 to-pink-500 text-white px-4 py-2 rounded-lg font-medium shadow-md hover:shadow-lg transform hover:scale-105 active:scale-95 transition-all duration-200 flex items-center space-x-2">
+                      <div className='flex gap-5'>
+                        <button onClick={() => sendDelete(todo)} className=" hover:cursor-pointer group relative bg-gradient-to-r from-red-500 to-pink-500 text-white px-4 py-2 rounded-lg font-medium shadow-md hover:shadow-lg transform hover:scale-105 active:scale-95 transition-all duration-200 flex items-center space-x-2">
                      
                       <span>Delete</span>
                     </button>
+                    <button onClick={() => navigate(`/create/${todo._id}`)} className=" hover:cursor-pointer group relative bg-gradient-to-r from-green-500 to-green-500 text-white px-4 py-2 rounded-lg font-medium shadow-md hover:shadow-lg transform hover:scale-105 active:scale-95 transition-all duration-200 flex items-center space-x-2">
+                     
+                      <span>Update</span>
+                    </button>
+                      </div>
                     
                     {/* Due Date */}
                     {todo.dueDate && (

@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Todos } from '../context/Context';
 import { useParams, useNavigate } from 'react-router-dom';
-
+import { FaArrowAltCircleRight } from "react-icons/fa";
 function CreateTodo() {
   const {
     createTodo,
@@ -22,14 +22,34 @@ function CreateTodo() {
     dueDate: '',
   });
 
-  // Fetch todo when editing
+  // Fetch todo when editing — await getByIdTodo and use returned todo to populate form.
   useEffect(() => {
     if (!isEditing || !id) return;
 
-    let cancelled = false;
+    let mounted = true;
+
     const fetchTodo = async () => {
       try {
-        await getByIdTodo(id);
+        const todoFromService = await getByIdTodo(id);
+       
+
+        const todo = todoFromService || currentTodo;
+        if (!mounted || !todo) return;
+
+        // Normalize the date for <input type="date">
+        const dueDate =
+          todo?.dueDate && !todo.dueDate.includes('T')
+            ? // already yyyy-mm-dd?
+              todo.dueDate
+            : todo?.dueDate
+            ? new Date(todo.dueDate).toISOString().split('T')[0]
+            : '';
+
+        setFormData({
+          title: todo.title || '',
+          description: todo.description || '',
+          dueDate,
+        });
       } catch (err) {
         console.error('Failed to fetch todo by id', err);
       }
@@ -38,22 +58,21 @@ function CreateTodo() {
     fetchTodo();
 
     return () => {
-      cancelled = true;
+      mounted = false;
     };
-  }, [isEditing, id, getByIdTodo]);
+    // note: getByIdTodo included because it's provided by context
+  }, [isEditing, id]);
 
-  // Populate formData when currentTodo arrives
+  // Keep form in sync if currentTodo changes for any reason (e.g., other parts update it)
   useEffect(() => {
-    if (isEditing && currentTodo) {
-      setFormData({
-        title: currentTodo.title || '',
-        description: currentTodo.description || '',
-        // convert to yyyy-mm-dd for <input type="date">
-        dueDate: currentTodo.dueDate
-          ? new Date(currentTodo.dueDate).toISOString().split('T')[0]
-          : '',
-      });
-    }
+    if (!isEditing || !currentTodo) return;
+
+    const todo = currentTodo;
+    setFormData({
+      title: todo.title || '',
+      description: todo.description || '',
+      dueDate: todo.dueDate ? new Date(todo.dueDate).toISOString().split('T')[0] : '',
+    });
   }, [isEditing, currentTodo]);
 
   const handleChange = (e) => {
@@ -179,76 +198,9 @@ function CreateTodo() {
           <div className="w-3 h-3 bg-purple-400 rounded-full animate-pulse"></div>
           <div className="w-3 h-3 bg-blue-400 rounded-full animate-pulse delay-75"></div>
           <div className="w-3 h-3 bg-pink-400 rounded-full animate-pulse delay-150"></div>
+          <h1 onClick={() => navigate('/')} title='Task List'><FaArrowAltCircleRight/></h1>
         </div>
       </div>
-
-      <style>{`
-        @keyframes fade-in {
-          from { opacity: 0; }
-          to { opacity: 1; }
-        }
-        
-        @keyframes slide-down {
-          from {
-            opacity: 0;
-            transform: translateY(-20px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-        
-        @keyframes slide-up {
-          from {
-            opacity: 0;
-            transform: translateY(20px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-        
-        @keyframes scale-in {
-          from {
-            opacity: 0;
-            transform: scale(0.95);
-          }
-          to {
-            opacity: 1;
-            transform: scale(1);
-          }
-        }
-        
-        .animate-fade-in {
-          animation: fade-in 0.6s ease-out;
-        }
-        
-        .animate-slide-down {
-          animation: slide-down 0.6s ease-out;
-        }
-        
-        .animate-slide-up {
-          animation: slide-up 0.6s ease-out 0.2s both;
-        }
-        
-        .animate-scale-in {
-          animation: scale-in 0.5s ease-out 0.3s both;
-        }
-        
-        .animate-bounce-slow {
-          animation: bounce 2s infinite;
-        }
-        
-        .delay-75 {
-          animation-delay: 75ms;
-        }
-        
-        .delay-150 {
-          animation-delay: 150ms;
-        }
-      `}</style>
     </div>
   );
 }

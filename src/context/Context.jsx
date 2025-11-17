@@ -85,6 +85,7 @@ const getByIdTodo = async (id) => {
     },
     body : JSON.stringify(currentData)
   })
+  toast.success('Update successFully ..!')
   if (!res.ok) {
         console.error('Error creating todo:', res.status, res.statusText);
         return;

@@ -5,6 +5,7 @@ import Pending from "./components/Pending"
 import CreateTodo from "./components/CreateTodo"
 import Complete from "./components/Complete"
 import TaskStatus from "./components/TaskStatus"
+import NotFound from "./components/NotFound"
 
 function App() {
   
@@ -15,9 +16,11 @@ function App() {
     <Routes>
       <Route path="/" element={<GetAllTodo/>}/>
       <Route path="/pending" element={<Pending/>}/>
-      <Route path="/create" element={<CreateTodo/>}/>
+      <Route path="/create/:id" element={<CreateTodo/>}/>
       <Route path="/complete" element={<Complete/>}/>
       <Route path="/status" element={<TaskStatus/>}/>
+      <Route path="/create" element={<CreateTodo/>}/>
+      <Route path="*" element={<NotFound/>}/>
     </Routes>
     </div>
   )
