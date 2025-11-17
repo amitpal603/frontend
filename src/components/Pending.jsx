@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react'
 import { Todos } from '../context/Context'
-import DummyData from './dummyData'
+import DummyData from './DummyData'
 import Delete from './Delete'
 import { IoCheckmarkDone } from "react-icons/io5";
 import { useNavigate } from 'react-router-dom';
