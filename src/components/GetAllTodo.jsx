@@ -85,7 +85,7 @@ function GetAllTodo() {
 
                     {/* Content Section */}
                     <div className="flex-grow min-w-0">
-                      <h2 className="text-xl sm:text-2xl font-bold text-gray-800 mb-2 break-words">
+                      <h2 className={` ${todo.completed ? ' line-through' :''} text-xl sm:text-2xl font-bold text-gray-800 mb-2 break-words`}>
                         {todo.title}
                       </h2>
                       <p className="text-gray-600 text-sm sm:text-base leading-relaxed break-words">
