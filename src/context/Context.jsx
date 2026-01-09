@@ -54,7 +54,7 @@ const getByIdTodo = async (id) => {
         return;
       }
       await fetchTodoData()
-       reset();
+      
   } catch (error) {
     console.error('Error creating todo:', error);
   }

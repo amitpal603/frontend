@@ -15,7 +15,7 @@ function GetAllTodo() {
     setSelect(todo);
     setOpen(true);
   };
-
+if(loading) return <h1>Loading...</h1>
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-pink-50 py-8 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto">
