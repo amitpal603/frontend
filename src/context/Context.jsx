@@ -12,23 +12,24 @@ const [currentTodo , setCurrentTodo] = useState(null)
 const navigate = useNavigate()
 
 const fetchTodoData = async () => {
-  try {
-    setLoading(true)
-    const res = await fetch('https://backend-8qgr.onrender.com/api/todo/getTodo')
-    const data = await res.json()
-    setTodos(data.todos || [])
-    setLoading(false)
-    if(!res.ok){
-      setErrorMsg(data.message)
+    try {
+      setLoading(true);
+      const res = await fetch('https://backend-1-5rb7.onrender.com/api/todo/getTodo');
+      const data = await res.json();
+      setTodos(data.todos || []);
+      if (!res.ok) {
+        setErrorMsg(data.message);
+      }
+    } catch (error) {
+      console.error('Error fetching todo:', error);
+    } finally {
+      setLoading(false);
     }
-  } catch (error) {
-     console.error('Error get todo:', error);
-  }
-}
+  };
 
 const getByIdTodo = async (id) => {
   try {
-    const res = await fetch(`https://backend-8qgr.onrender.com/api/todo/getById/${id}`)
+    const res = await fetch(`https://backend-1-5rb7.onrender.com/api/todo/getById/${id}`)
  const data = await res.json()
   if(res.status == 200){
     setCurrentTodo(data.todos)
@@ -40,7 +41,7 @@ const getByIdTodo = async (id) => {
 }
  const createTodo = async (input) => {
   try {
-    const res = await fetch('https://backend-8qgr.onrender.com/api/todo/create' , {
+    const res = await fetch('https://backend-1-5rb7.onrender.com/api/todo/create' , {
       method : 'POST',
       headers: {
           'Content-Type': 'application/json',
@@ -62,7 +63,7 @@ const getByIdTodo = async (id) => {
 
  const deleteTodo = async (id) => {
    try {
-    const res = await fetch(`https://backend-8qgr.onrender.com/api/todo/delete/${id}` , {
+    const res = await fetch(`https://backend-1-5rb7.onrender.com/api/todo/delete/${id}` , {
       method : 'DELETE'
     })
     toast.success('Delete successFully ..!')
@@ -78,7 +79,7 @@ const getByIdTodo = async (id) => {
 
  const updateTodo = async (id , currentData) => {
   try {
-    const res = await fetch(`https://backend-8qgr.onrender.com/api/todo/update/${id}` , {
+    const res = await fetch(`https://backend-1-5rb7.onrender.com/api/todo/update/${id}` , {
     method : 'PUT',
     headers :{
      'Content-Type': 'application/json',
@@ -98,7 +99,7 @@ const getByIdTodo = async (id) => {
  }
  const singleUpdate = async (id , currentData) => {
   try {
-    const res = await fetch(`https://backend-8qgr.onrender.com/api/todo/single/${id}` , {
+    const res = await fetch(`https://backend-1-5rb7.onrender.com/api/todo/single/${id}` , {
       method : 'PATCH',
       headers :{
        'Content-Type': 'application/json',

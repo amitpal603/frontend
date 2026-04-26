@@ -101,104 +101,87 @@ function CreateTodo() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-blue-50 to-pink-50 py-8 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-2xl mx-auto">
-        {/* Header */}
-        <div className="mt-20 text-center mb-8 animate-fade-in">
-          <h1 className="text-4xl sm:text-5xl font-bold bg-gradient-to-r from-purple-600 via-blue-600 to-pink-600 bg-clip-text text-transparent mb-2 animate-slide-down">
-            {isEditing ? 'Update Task' : 'Add New Task'}
+    <div className="max-w-2xl mx-auto px-4">
+      <div className="glass-card rounded-3xl p-8 sm:p-12 animate-scale-in">
+        <div className="text-center mb-10">
+          <h1 className="text-4xl font-black mb-3">
+            <span className="text-gradient">{isEditing ? "Update Mission" : "New Mission"}</span>
           </h1>
+          <p className="text-slate-400 font-medium tracking-tight">Define the parameters for your next objective</p>
         </div>
 
-        {/* Form Card */}
-        <form
-          onSubmit={handleSubmit}
-          className="bg-white rounded-2xl shadow-xl p-6 sm:p-8 transform transition-all duration-300 hover:shadow-2xl animate-scale-in"
-        >
-          <div className="space-y-6">
-            {/* Title Input */}
-            <div className="group">
-              <label
-                htmlFor="title"
-                className="block text-sm font-semibold text-gray-700 mb-2 transition-colors group-focus-within:text-purple-600"
-              >
-                Task Title
-              </label>
-              <input
-                id="title"
-                name="title"
-                type="text"
-                value={formData.title}
-                onChange={handleChange}
-                placeholder="Enter your task title..."
-                className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-purple-500 focus:ring-4 focus:ring-purple-100 outline-none transition-all duration-300 placeholder-gray-400 hover:border-gray-300"
-                required
-              />
-            </div>
-
-            {/* Description Textarea */}
-            <div className="group">
-              <label
-                htmlFor="description"
-                className="block text-sm font-semibold text-gray-700 mb-2 transition-colors group-focus-within:text-blue-600"
-              >
-                Description
-              </label>
-              <textarea
-                id="description"
-                name="description"
-                value={formData.description}
-                onChange={handleChange}
-                placeholder="Add task description or notes..."
-                rows="4"
-                className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-100 outline-none transition-all duration-300 placeholder-gray-400 resize-none hover:border-gray-300"
-              />
-            </div>
-
-            {/* Due Date Input */}
-            <div className="group">
-              <label
-                htmlFor="dueDate"
-                className="block text-sm font-semibold text-gray-700 mb-2 transition-colors group-focus-within:text-pink-600"
-              >
-                Due Date
-              </label>
-              <input
-                id="dueDate"
-                name="dueDate"
-                type="date"
-                value={formData.dueDate}
-                onChange={handleChange}
-                className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-pink-500 focus:ring-4 focus:ring-pink-100 outline-none transition-all duration-300 hover:border-gray-300"
-              />
-            </div>
-
-            {/* Submit Button */}
-            <button
-              type="submit"
-              disabled={loading}
-              aria-busy={loading}
-              className="hover:cursor-pointer w-full bg-gradient-to-r from-purple-600 via-blue-600 to-pink-600 text-white font-semibold py-4 rounded-lg shadow-lg hover:shadow-xl transform hover:scale-105 active:scale-95 transition-all duration-300 flex items-center justify-center space-x-2 group disabled:opacity-60"
-            >
-              <span>{loading ? 'Saving ..' : isEditing ? 'Update Todo' : 'Create Todo'}</span>
-              <svg
-                className="w-5 h-5 transform group-hover:translate-x-1 transition-transform duration-300"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-              </svg>
-            </button>
+        <form onSubmit={handleSubmit} className="space-y-8">
+          {/* Title Field */}
+          <div className="space-y-2">
+            <label className="text-xs font-bold text-slate-300 uppercase tracking-widest ml-1">Objective Title</label>
+            <input
+              id="title"
+              name="title"
+              type="text"
+              value={formData.title}
+              onChange={handleChange}
+              className="w-full bg-white/5 border-2 border-white/10 rounded-2xl px-6 py-4 text-white focus:outline-none focus:border-brand-primary/50 transition-all duration-300 focus:ring-4 focus:ring-brand-primary/20"
+              placeholder="e.g. Conquer the Red Planet"
+              required
+            />
           </div>
+
+          {/* Description Field */}
+          <div className="space-y-2">
+            <label className="text-xs font-bold text-slate-300 uppercase tracking-widest ml-1">Mission Intel</label>
+            <textarea
+              id="description"
+              name="description"
+              value={formData.description}
+              onChange={handleChange}
+              rows="4"
+              className="w-full bg-white/5 border-2 border-white/10 rounded-2xl px-6 py-4 text-white focus:outline-none focus:border-brand-primary/50 transition-all duration-300 focus:ring-4 focus:ring-brand-primary/20 resize-none"
+              placeholder="Provide detailed coordinates and objectives..."
+            />
+          </div>
+
+          {/* Due Date Field */}
+          <div className="space-y-2">
+            <label className="text-xs font-bold text-slate-300 uppercase tracking-widest ml-1">Deadline (Earth Time)</label>
+            <input
+              id="dueDate"
+              name="dueDate"
+              type="date"
+              value={formData.dueDate}
+              onChange={handleChange}
+              className="w-full bg-white/5 border-2 border-white/10 rounded-2xl px-6 py-4 text-white focus:outline-none focus:border-brand-primary/50 transition-all duration-300 focus:ring-4 focus:ring-brand-primary/20"
+              required
+            />
+          </div>
+
+          {/* Submit Button */}
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full bg-gradient-to-r from-brand-primary to-brand-secondary hover:shadow-[0_0_40px_-10px_rgba(139,92,246,0.5)] text-white font-black py-5 rounded-2xl transition-all duration-500 transform hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed text-lg tracking-wider"
+          >
+            {loading ? (
+              <span className="flex items-center justify-center">
+                <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" fill="none" viewBox="0 0 24 24">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                Synchronizing...
+              </span>
+            ) : (
+              isEditing ? "INITIATE UPDATE" : "LAUNCH MISSION"
+            )}
+          </button>
         </form>
 
-        {/* Decorative Elements */}
-        <div className="mt-8 flex justify-center space-x-2 animate-bounce-slow">
-          <div className="w-3 h-3 bg-purple-400 rounded-full animate-pulse"></div>
-          <div className="w-3 h-3 bg-blue-400 rounded-full animate-pulse delay-75"></div>
-          <div className="w-3 h-3 bg-pink-400 rounded-full animate-pulse delay-150"></div>
-          <h1 onClick={() => navigate('/')} title='Task List'><FaArrowAltCircleRight/></h1>
+        <div className="mt-8 flex items-center justify-center space-x-4">
+           <button 
+             onClick={() => navigate('/')} 
+             className="flex items-center space-x-2 text-slate-400 hover:text-white transition-colors duration-300 font-bold uppercase tracking-widest text-xs"
+           >
+             <FaArrowAltCircleRight className="text-xl rotate-180" />
+             <span>Return to Base</span>
+           </button>
         </div>
       </div>
     </div>
