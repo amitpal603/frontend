@@ -21,7 +21,7 @@ function GetAllTodo() {
       {/* Header Section */}
       <div className="text-center mb-12 animate-fade-in">
         <h1 className="text-5xl sm:text-6xl font-extrabold mb-6 tracking-tight">
-          <span className="text-gradient">My Universe</span>
+          <span className="text-gradient">My All Tasks</span>
         </h1>
 
         {/* Task Counter */}

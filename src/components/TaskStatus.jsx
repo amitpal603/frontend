@@ -7,7 +7,7 @@ function TaskStatus() {
     <div className="max-w-4xl mx-auto px-4">
       <div className="glass-card rounded-3xl p-8 sm:p-12 animate-scale-in">
         <h1 className="text-4xl font-black mb-10 text-center tracking-tight">
-          <span className="text-gradient">Mission Analytics</span>
+          <span className="text-gradient">States of Tasks</span>
         </h1>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -22,7 +22,7 @@ function TaskStatus() {
 
           {/* Active Tasks */}
           <div className="glass-card rounded-2xl p-6 border-white/5 hover:border-amber-500/30 transition-colors duration-500">
-            <p className="text-xs font-black text-slate-400 uppercase tracking-widest mb-3">Active Missions</p>
+            <p className="text-xs font-black text-slate-400 uppercase tracking-widest mb-3">Active Tasks</p>
             <p className="text-5xl font-black text-white">{ActiveTask.length || 0}</p>
             <div className="mt-4 h-1 w-full bg-slate-800 rounded-full overflow-hidden">
               <div 
